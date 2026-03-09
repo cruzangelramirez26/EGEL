@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plan EGEL Plus – Ingeniería de Software</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#F1F5F9;font-family:Georgia,serif}
+    a{text-decoration:none} a:hover{text-decoration:underline}
+    button{cursor:pointer;border:none;font-family:Georgia,serif}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+  const {useState} = React;
+
+  const areas = [
+    {
+      id:1, name:"Análisis de Sistemas de Software", color:"#2563EB", bg:"#EFF6FF",
+      reactivos:31, weeks:"8 Mar – 20 Mar",
+      subareas:[
+        {name:"1.1 Tipos de requerimientos", reactivos:12},
+        {name:"1.2 Técnicas de obtención, análisis, priorización y validación", reactivos:9},
+        {name:"1.3 Técnicas de documentación de requerimientos", reactivos:10},
+      ],
+      studyTips:"Enfócate en clasificar requerimientos funcionales vs no funcionales, técnicas como entrevistas, casos de uso, historias de usuario y diagramas UML. Practica haciendo matrices de trazabilidad.",
+      oficial:[
+        {title:"Análisis y requerimientos de software – Wong (2017)", author:"Wong, S. – Universidad Continental", url:"https://repositorio.continental.edu.pe/bitstream/20.500.12394/4281/1/DO_FIN_103_MAI_UC0939_2018.pdf", free:true, note:"PDF completo en español"},
+        {title:"Técnicas de estimación – Cubero (s.f.)", author:"Cubero, E. – Blog Proyectum", url:"https://www.proyectum.com/sistema/blog/tecnicas-de-estimacion/", free:true, note:"Artículo web"},
+        {title:"Code Complete Checklist: Requirements – McConell", author:"McConell, S.", url:"https://www.matthewjmiller.net/files/cc2e_checklists.pdf", free:true, note:"PDF checklist gratuito"},
+        {title:"When to use which UX research methods – Rohrer (2014)", author:"Nielsen Norman Group", url:"https://www.nngroup.com/articles/which-ux-research-methods/", free:true, note:"Artículo web"},
+        {title:"What is User Story? – Visual Paradigm", author:"Visual Paradigm", url:"https://www.visual-paradigm.com/guide/agile-software-development/what-is-user-story/", free:true, note:"Artículo con ejemplos"},
+        {title:"What is SysML? – SysML.org", author:"SysML", url:"https://sysml.org/", free:true, note:"Sitio oficial"},
+        {title:"Ingeniería de software (9a ed.) – Sommerville (2011)", author:"Sommerville, I. – Pearson", url:"https://www.pearson.com/en-us/subject-catalog/p/software-engineering/P200000003258", free:false, note:"Buscar en biblioteca (Cap. 4, 5, 6)"},
+        {title:"Ingeniería de software (7a ed.) – Pressman (2010)", author:"Pressman, R. – McGraw Hill", url:"https://www.mheducation.com.mx/", free:false, note:"Buscar en biblioteca – Cap. 5-7"},
+        {title:"Software Requirements (3a ed.) – Wiegers & Beatty (2013)", author:"Wiegers & Beatty – Microsoft Press", url:"https://www.microsoftpressstore.com/store/software-requirements-9780735679665", free:false, note:"Referencia clave del área"},
+        {title:"User Story Mapping – Patton (2014)", author:"Patton, J. – O'Reilly", url:"https://www.oreilly.com/library/view/user-story-mapping/9781491904893/", free:false, note:"Buscar en biblioteca"},
+      ],
+      extra:[
+        {title:"🎥 Ingeniería de Requerimientos desde cero (Español)", url:"https://www.youtube.com/watch?v=q3BYFLMCKlg", type:"YouTube", note:"Tipos de requerimientos explicados"},
+        {title:"🎥 Casos de Uso UML completo (Español)", url:"https://www.youtube.com/watch?v=MZJA8dFrNpc", type:"YouTube", note:"Diagramas UML paso a paso"},
+        {title:"🎥 Historias de Usuario vs Casos de Uso", url:"https://www.youtube.com/watch?v=apOvF9NVguA", type:"YouTube", note:"Diferencias clave para el examen"},
+        {title:"🌐 SWEBOK v3.0 Cap.1 – Software Requirements", url:"https://www.computer.org/education/bodies-of-knowledge/software-engineering/v3", type:"Web", note:"Referencia IEEE oficial"},
+        {title:"🎥 UML en español – Todos los diagramas", url:"https://www.youtube.com/watch?v=Z0yLerU0g-Q", type:"YouTube", note:"Serie completa de diagramas UML"},
+      ],
+    },
+    {
+      id:2, name:"Diseño de Sistemas de Software", color:"#7C3AED", bg:"#F5F3FF",
+      reactivos:33, weeks:"23 Mar – 8 Abr",
+      subareas:[
+        {name:"2.1 Diseño arquitectónico de software", reactivos:10},
+        {name:"2.2 Diseño de módulos, componentes y datos", reactivos:16},
+        {name:"2.3 Diseño de interfaces", reactivos:7},
+      ],
+      studyTips:"Domina estilos arquitectónicos (capas, MVC, microservicios), el modelo 4+1 de Kruchten, patrones GoF y principios SOLID. Para interfaces estudia las 10 heurísticas de Nielsen.",
+      oficial:[
+        {title:"Modelo 4+1 de arquitectura – Kruchten (1995)", author:"Kruchten, P. – IEEE Software", url:"https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf", free:true, note:"Paper original gratuito (PDF)"},
+        {title:"10 usability heuristics – Nielsen (1994)", author:"Nielsen, J. – Nielsen Norman Group", url:"https://www.nngroup.com/articles/ten-usability-heuristics/", free:true, note:"Las 10 heurísticas fundamentales"},
+        {title:"UX prototypes: Low vs. High fidelity – Pernice (2016)", author:"Pernice, K. – Nielsen Norman Group", url:"https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/", free:true, note:"Artículo web"},
+        {title:"Task scenarios for usability testing – McCloskey (2014)", author:"McCloskey, M. – Nielsen Norman Group", url:"https://www.nngroup.com/articles/task-scenarios-usability-testing/", free:true, note:"Artículo web"},
+        {title:"Acoplamiento y cohesión – Pascual (2019)", author:"Pascual, J. R. – Blog Disrupción Tecnológica", url:"https://www.disrupciontecnologica.com/acoplamiento-y-cohesion/", free:true, note:"Artículo en español"},
+        {title:"Tipificación de dominios – Suárez & Gutiérrez (2016)", author:"Suárez, J. y Gutiérrez – SciELO", url:"https://scielo.conicyt.cl/scielo.php?pid=S0718-07642016000400021&script=sci_arttext", free:true, note:"Artículo SciELO"},
+        {title:"Scenario-based assessment – Folmer et al.", author:"Folmer, E. et al. – ResearchGate", url:"https://www.researchgate.net/publication/2940293", free:true, note:"Paper gratuito"},
+        {title:"Arquitectura de software – Cervantes et al. (2016)", author:"Cervantes et al. – Cengage", url:"https://www.cengage.com.mx/", free:false, note:"Buscar en biblioteca"},
+        {title:"Software Architecture for Developers – Brown (2014)", author:"Brown, S. – Leanpub", url:"https://leanpub.com/software-architecture-for-developers", free:false, note:"Precio libre desde $0"},
+        {title:"Documenting Software Architectures – Clements et al.", author:"Clements et al. – IEEE", url:"https://ieeexplore.ieee.org/abstract/document/1201264/", free:false, note:"IEEE Xplore"},
+        {title:"Introducción a los sistemas de bases de datos – Date (2001)", author:"Date, J. C. – Pearson", url:"https://www.pearson.com/", free:false, note:"Buscar en biblioteca"},
+      ],
+      extra:[
+        {title:"🌐 Refactoring.Guru – Patrones GoF en ESPAÑOL", url:"https://refactoring.guru/es/design-patterns", type:"Web", note:"El mejor recurso gratuito para patrones GoF"},
+        {title:"🎥 Design Patterns – Christopher Okhravi (Playlist)", url:"https://www.youtube.com/playlist?list=PLrhzvIcii6GNjpARdnO4ueTUAVR9eMBpc", type:"YouTube", note:"Serie completa GoF (muy clara)"},
+        {title:"🎥 Principios SOLID en Español", url:"https://www.youtube.com/watch?v=2X50sKeBAcQ", type:"YouTube", note:"Todos los principios con ejemplos"},
+        {title:"🎥 Estilos arquitectónicos – MVC, capas, microservicios", url:"https://www.youtube.com/watch?v=pTltXoLMJm8", type:"YouTube", note:"Comparación de estilos"},
+        {title:"🌐 SWEBOK v3.0 Cap.2 – Software Design", url:"https://www.computer.org/education/bodies-of-knowledge/software-engineering/v3", type:"Web", note:"Capítulo IEEE sobre diseño"},
+        {title:"🎥 Diagramas UML: Clases, Secuencia y Componentes", url:"https://www.youtube.com/watch?v=UI6lqHOVHic", type:"YouTube", note:"UML práctico para el EGEL"},
+      ],
+    },
+    {
+      id:3, name:"Desarrollo de Sistemas de Software", color:"#059669", bg:"#ECFDF5",
+      reactivos:49, weeks:"10 Abr – 27 Abr",
+      subareas:[
+        {name:"3.1 Lenguajes de desarrollo de software", reactivos:10},
+        {name:"3.2 Paradigmas de programación", reactivos:10},
+        {name:"3.3 Entornos de desarrollo", reactivos:10},
+        {name:"3.4 Gestión de datos", reactivos:9},
+        {name:"3.5 Plataformas de desarrollo", reactivos:10},
+      ],
+      studyTips:"Es el área con más reactivos (34%). Estudia paradigmas OOP/funcional/lógico, clasificación de lenguajes, Git/DevOps, SQL y NoSQL. Para plataformas cubre web, móvil y nube básico.",
+      oficial:[
+        {title:"Introducción a la programación – Juganaru (2021)", author:"Juganaru, M. – Editorial Patria", url:"http://www.editorialpatria.com.mx/mobile/pdffiles/9786074384154.pdf", free:true, note:"PDF completo gratuito"},
+        {title:"Fundamentos de programación en Java – Ladrón de Guevara (2020)", author:"Ladrón de Guevara, J. – UCM", url:"https://www.tesuva.edu.co/phocadownloadpap/Fundamentos%20de%20programcion%20en%20Java.pdf", free:true, note:"PDF gratuito"},
+        {title:"The C Book – Gbdirect", author:"Gbdirect", url:"https://publications.gbdirect.co.uk//c_book/", free:true, note:"Libro gratuito en línea"},
+        {title:"Lenguaje de programación Haskell – EcuRed", author:"EcuRed", url:"https://www.ecured.cu/Lenguaje_de_programaci%C3%B3n_Haskell", free:true, note:"Artículo"},
+        {title:"Comparing Python to other languages – Python.org", author:"Python Software Foundation", url:"https://www.python.org/doc/essays/comparisons/", free:true, note:"Sitio oficial de Python"},
+        {title:"PHP vs JavaScript – Scand", author:"Burets, A. – Scand", url:"https://scand.com/company/blog/php-vs-javascript-difference-between/", free:true, note:"Comparativa"},
+        {title:"Lenguajes de programación: conceptos y paradigmas – Ruiz (2001)", author:"Ruiz, E. – UNMSM", url:"https://sisbib.unmsm.edu.pe/bibvirtual/publicaciones/indata/v04_n1/lenguajes.htm", free:true, note:"Artículo en español"},
+        {title:"Lenguajes de programación – Ureña (2012)", author:"Ureña, C. – Univ. Granada", url:"https://lsi2.ugr.es/curena/doce/lp/tr-11-12/lp-c01-impr.pdf", free:true, note:"PDF universitario"},
+        {title:"Programación lógica – Serra (2011)", author:"Serra, S. – UTN", url:"https://labsys.frc.utn.edu.ar/ppr-2011/Unidad%20V%20-%20Paradigma%20L%C3%B3gico/Unidad%20V%20-%20Paradigma%20LOGICO.pdf", free:true, note:"PDF gratuito"},
+        {title:"Estructura de datos – Sánchez & Martínez (2013)", author:"Sánchez, J. y Martínez – IPN ESCOM", url:"https://www.escom.ipn.mx/docs/oferta/matDidacticoISC2009/EDts/Libro_EstructuraDatos.pdf", free:true, note:"PDF IPN"},
+        {title:"Introducción a la programación con Java – Pereira et al. (2008)", author:"Pereira, E. et al. – UDC", url:"https://vios.dc.fi.udc.es/tp/ficheiros/java08.pdf", free:true, note:"PDF gratuito"},
+        {title:"Fundamentos de bases de datos (6a ed.) – Silberschatz", author:"Silberschatz, A. – McGraw Hill", url:"https://www.mheducation.com/", free:false, note:"Buscar en biblioteca"},
+        {title:"SQL & NoSQL Databases – Meier & Kaufmann (2019)", author:"Meier, A. y Kaufmann – Springer", url:"https://link.springer.com/book/9783658245481", free:false, note:"Buscar en biblioteca"},
+        {title:"Learning SQL – Beaulieu (2020)", author:"Beaulieu, A. – O'Reilly", url:"https://www.oreilly.com/library/view/learning-sql-3rd/9781492057604/", free:false, note:"Buscar en biblioteca"},
+      ],
+      extra:[
+        {title:"🌐 db-book.com – Diapositivas Database System Concepts", url:"https://db-book.com/", type:"Web", note:"Diapositivas oficiales del libro de Silberschatz"},
+        {title:"🎥 Paradigmas de programación (Español)", url:"https://www.youtube.com/watch?v=EezmIKgFnZ4", type:"YouTube", note:"OOP, funcional, lógico comparados"},
+        {title:"🎥 SQL desde cero – midudev", url:"https://www.youtube.com/watch?v=uUdKAYl-F7g", type:"YouTube", note:"SQL completo en 4 horas"},
+        {title:"🎥 Git y GitHub para principiantes – Fazt", url:"https://www.youtube.com/watch?v=HiXLkL42tMU", type:"YouTube", note:"Control de versiones (subárea 3.3)"},
+        {title:"🌐 MDN Web Docs en español", url:"https://developer.mozilla.org/es/", type:"Web", note:"Referencia oficial de desarrollo web"},
+        {title:"🎥 NoSQL vs SQL – ¿Cuándo usar cada una?", url:"https://www.youtube.com/watch?v=ZS_kXvOeQ5Y", type:"YouTube", note:"Comparativa para subárea 3.4"},
+        {title:"🌐 Roadmap.sh – Rutas de aprendizaje", url:"https://roadmap.sh/", type:"Web", note:"Frontend, Backend, DevOps – visual y gratuito"},
+      ],
+    },
+    {
+      id:4, name:"Gestión de Proyectos de Software", color:"#DC2626", bg:"#FEF2F2",
+      reactivos:30, weeks:"29 Abr – 11 May",
+      subareas:[
+        {name:"4.1 Gestión de tiempos, costos, recursos humanos y riesgo", reactivos:8},
+        {name:"4.2 Calidad de software", reactivos:10},
+        {name:"4.3 Metodologías de desarrollo", reactivos:12},
+      ],
+      studyTips:"Domina Scrum, XP, RUP y Cascada. Comprende COCOMO para estimación, ISO 25010 para calidad y gestión de riesgos. Scrum es el más frecuente en el examen.",
+      oficial:[
+        {title:"La Guía de Scrum 2020 (en español)", author:"Schwaber, K. y Sutherland, J.", url:"https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-Spanish-Latin-South-American.pdf", free:true, note:"PDF oficial — LECTURA OBLIGATORIA"},
+        {title:"Extreme Programming: A gentle introduction", author:"Extreme Programming (2009)", url:"http://www.extremeprogramming.org/", free:true, note:"Sitio oficial de XP"},
+        {title:"Metodologías de desarrollo de software – Maida & Pacienzia (2015)", author:"Maida, E. y Pacienzia – UCA", url:"https://repositorio.uca.edu.ar/bitstream/123456789/522/1/metodologias-desarrollo-software.pdf", free:true, note:"Tesis comparativa PDF"},
+        {title:"¿Qué son los artefactos de Scrum? – Kaizenia", author:"Kaizenia", url:"https://kzi.mx/que-son-los-artefactos-de-scrum/", free:true, note:"Artículo en español"},
+        {title:"Normas y estándares de calidad – Arciniega (2017)", author:"Arciniega, F. – UNAM FCA", url:"http://fcaenlinea.unam.mx/anexos/1728/Unidad_2/u2_act2_1.pdf", free:true, note:"PDF UNAM gratuito"},
+        {title:"Estudio comparativo de metodologías – García (2018)", author:"García, J. – UOC", url:"http://openaccess.uoc.edu/webapps/o2/bitstream/10609/73151/6/jgarcianavarroTFG0118memoria.pdf", free:true, note:"TFG PDF gratuito"},
+        {title:"Estimación con COCOMO – Garita & Lizano (2018)", author:"Garita, G. y Lizano – ResearchGate", url:"https://www.researchgate.net/publication/323333867", free:true, note:"Paper gratuito"},
+        {title:"Método ágil XP, SCRUM, OPENUP – Gamboa-Carrascal (2015)", author:"Gamboa-Carrascal, J. y Rosado – Revista Ingenio", url:"https://revistas.ufps.edu.co/index.php/ingenio/article/view/2045/1998", free:true, note:"Artículo gratuito"},
+        {title:"El proceso unificado RUP – Torossi", author:"Torossi, G. – ITMorelia", url:"http://dsc.itmorelia.edu.mx/~jcolivares/courses/pm10a/rup.pdf", free:true, note:"PDF gratuito"},
+        {title:"ISO 25010 – Resumen del modelo de calidad", author:"ISO 25000", url:"https://iso25000.com/index.php/normas-iso-25000/iso-25010", free:true, note:"Resumen gratuito"},
+        {title:"Métricas de la documentación – Hilera", author:"Hilera, J. R. – EHU", url:"http://www.sc.ehu.es/jiwdocoj/remis/docs/medidocs.htm", free:true, note:"Página web"},
+        {title:"Estimación de costos – Díaz & Robiolo (2014)", author:"Díaz, J. y Robiolo – SADIO", url:"https://43jaiio.sadio.org.ar/proceedings/ASSE/02-01-568-2484-1-DR.pdf", free:true, note:"PDF gratuito"},
+        {title:"PMBOK Guide (6a ed.) – PMI (2018)", author:"Project Management Institute", url:"https://www.pmi.org/pmbok-guide-standards/foundational/pmbok", free:false, note:"Buscar en biblioteca"},
+        {title:"Software Architecture in Practice – Bass et al. (2013)", author:"Bass, L. et al. – Addison Wesley", url:"https://www.informit.com/store/software-architecture-in-practice-9780321815736", free:false, note:"Buscar en biblioteca"},
+      ],
+      extra:[
+        {title:"🎥 Scrum en 10 minutos (Español)", url:"https://www.youtube.com/watch?v=PlLHc60egiQ", type:"YouTube", note:"Resumen visual de Scrum"},
+        {title:"🎥 XP (Extreme Programming) explicado", url:"https://www.youtube.com/watch?v=hbFOwqYIOcU", type:"YouTube", note:"Prácticas de XP para el examen"},
+        {title:"🎥 Kanban vs Scrum vs XP", url:"https://www.youtube.com/watch?v=M1q6b9JI2Wc", type:"YouTube", note:"Comparativa de metodologías ágiles"},
+        {title:"🎥 ISO 25010 – Calidad de software", url:"https://www.youtube.com/watch?v=3KJJzMZ6pMQ", type:"YouTube", note:"Características del modelo"},
+        {title:"🌐 Agile Manifesto en español", url:"https://agilemanifesto.org/iso/es/manifesto.html", type:"Web", note:"Los 12 principios ágiles originales"},
+        {title:"🎥 COCOMO – Estimación de proyectos", url:"https://www.youtube.com/watch?v=F9jFCmrOZVo", type:"YouTube", note:"Cálculo COCOMO con ejemplos"},
+        {title:"🌐 Metodología OpenUP", url:"http://openupeaojmp.blogspot.com/2013/09/metodologia-open-up.html", type:"Web", note:"Fuente oficial de la bibliografía"},
+      ],
+    },
+  ];
+
+  const sessions = [
+    {date:"Dom 9 Mar",  type:"repaso",area:1,topic:"Kick-off: Tipos de requerimientos funcionales y no funcionales (1.1)"},
+    {date:"Mar 11 Mar", type:"repaso",area:1,topic:"Técnicas de elicitación: entrevistas, observación, encuestas (1.2)"},
+    {date:"Jue 13 Mar", type:"repaso",area:1,topic:"Priorización y validación de requerimientos (1.2)"},
+    {date:"Dom 16 Mar", type:"repaso",area:1,topic:"Documentación: casos de uso, UML, historias de usuario (1.3)"},
+    {date:"Mar 18 Mar", type:"repaso",area:1,topic:"Estimación y User Story Mapping (1.3)"},
+    {date:"Jue 20 Mar", type:"examen",area:1,topic:"🧪 Mini-examen Área 1 completa (31 reactivos)"},
+    {date:"Dom 23 Mar", type:"repaso",area:2,topic:"Estilos arquitectónicos: capas, MVC, microservicios (2.1)"},
+    {date:"Mar 25 Mar", type:"repaso",area:2,topic:"Modelo 4+1 de Kruchten + atributos de calidad (2.1)"},
+    {date:"Jue 27 Mar", type:"repaso",area:2,topic:"Principios SOLID y patrones GoF creacionales (2.2)"},
+    {date:"Dom 30 Mar", type:"repaso",area:2,topic:"Patrones GoF estructurales y de comportamiento (2.2)"},
+    {date:"Mar 1 Abr",  type:"repaso",area:2,topic:"Diseño de datos, componentes y acoplamiento/cohesión (2.2)"},
+    {date:"Jue 3 Abr",  type:"repaso",area:2,topic:"Diseño de interfaces: 10 heurísticas de Nielsen, prototipos (2.3)"},
+    {date:"Dom 6 Abr",  type:"repaso",area:2,topic:"UML: clases, secuencia, componentes + repaso Área 2"},
+    {date:"Mar 8 Abr",  type:"examen",area:2,topic:"🧪 Mini-examen Área 2 completa (33 reactivos)"},
+    {date:"Jue 10 Abr", type:"repaso",area:3,topic:"Paradigmas: OOP, funcional, lógico, imperativo (3.2)"},
+    {date:"Dom 13 Abr", type:"repaso",area:3,topic:"Clasificación de lenguajes: compilados, interpretados (3.1)"},
+    {date:"Mar 15 Abr", type:"repaso",area:3,topic:"Entornos: IDEs, control de versiones Git, DevOps (3.3)"},
+    {date:"Jue 17 Abr", type:"repaso",area:3,topic:"Gestión de datos: SQL, normalización, NoSQL (3.4)"},
+    {date:"Dom 20 Abr", type:"repaso",area:3,topic:"Plataformas de desarrollo: web, móvil, nube (3.5)"},
+    {date:"Mar 22 Abr", type:"repaso",area:3,topic:"Testing: unitario, integración, E2E + estructuras de datos"},
+    {date:"Jue 24 Abr", type:"repaso",area:3,topic:"Repaso intensivo Área 3"},
+    {date:"Dom 27 Abr", type:"examen",area:3,topic:"🧪 Mini-examen Área 3 completa (49 reactivos)"},
+    {date:"Mar 29 Abr", type:"repaso",area:4,topic:"Scrum completo: roles, eventos, artefactos (4.3)"},
+    {date:"Jue 1 May",  type:"repaso",area:4,topic:"XP, Kanban, OpenUP y RUP vs ágiles (4.3)"},
+    {date:"Dom 4 May",  type:"repaso",area:4,topic:"Estimación: COCOMO, Puntos de Función, Planning Poker (4.1)"},
+    {date:"Mar 6 May",  type:"repaso",area:4,topic:"Gestión de riesgos y recursos humanos (4.1)"},
+    {date:"Jue 8 May",  type:"repaso",area:4,topic:"Calidad: ISO 25010, CMMI, métricas de software (4.2)"},
+    {date:"Dom 11 May", type:"examen",area:4,topic:"🧪 Mini-examen Área 4 completa (30 reactivos)"},
+    {date:"Mar 13 May", type:"final", area:0,topic:"🔥 Simulacro completo EGEL (143 reactivos, tiempo real ~3h)"},
+    {date:"Jue 15 May", type:"final", area:0,topic:"🎯 Revisión de errores + estrategia de examen"},
+  ];
+
+  const tStyle={
+    repaso:{bg:"#F0F9FF",border:"#BAE6FD",label:"Sesión Grupal",icon:"👥"},
+    examen:{bg:"#FFF7ED",border:"#FED7AA",label:"Mini-Examen",icon:"📝"},
+    final: {bg:"#FDF4FF",border:"#E9D5FF",label:"Simulacro",icon:"🚀"},
+  };
+  const aC={0:"#6B7280",1:"#2563EB",2:"#7C3AED",3:"#059669",4:"#DC2626"};
+
+  const tips = [
+    {icon:"🗓️",title:"Rutina semanal",color:"#2563EB",items:["Lunes: Lee el tema del Martes (60-90 min individual)","Martes: Sesión grupal 1.5h — repasar, practicar reactivos EGEL","Miércoles: Lee el tema del Jueves (60-90 min individual)","Jueves: Sesión grupal 1.5h — repasar y practicar","Viernes/Sábado: Repaso personal + videos de YouTube","Domingo: Sesión grupal 1.5h — mini-examen o repaso acumulado"]},
+    {icon:"👥",title:"Dinámica de sesiones grupales",color:"#7C3AED",items:["Cada integrante prepara 3-5 reactivos tipo EGEL","Resuelven individualmente (5 min), luego discuten","Rotarse para explicar conceptos: quien explica, aprende mejor","Hacer mapa conceptual al inicio de cada sesión","Revisar errores del mini-examen anterior antes del nuevo tema"]},
+    {icon:"⚠️",title:"Distribución de reactivos",color:"#DC2626",items:["🔴 Área 3: Desarrollo — 49 reactivos = 34% del examen","🟠 Área 2: Diseño — 33 reactivos = 23%","🟡 Área 1: Análisis — 31 reactivos = 22%","🟢 Área 4: Gestión — 30 reactivos = 21%"]},
+    {icon:"📖",title:"Recursos GRATIS imprescindibles",color:"#059669",items:["SWEBOK v3.0 (IEEE): computer.org — cubre TODAS las áreas","Refactoring.Guru en español: refactoring.guru/es — patrones GoF","Scrum Guide 2020 en español: scrumguides.org — obligatorio","ISO 25010: iso25000.com — calidad de software","db-book.com — diapositivas gratuitas de bases de datos","MDN Web Docs en español: developer.mozilla.org/es","Roadmap.sh — rutas visuales de aprendizaje"]},
+    {icon:"🎯",title:"Semana final (12-15 Mayo)",color:"#DC2626",items:["Martes 13: Simulacro cronometrado completo (~3-4 horas)","Miércoles: Reforzar subáreas con más errores","Jueves 15: Revisión de errores + fórmulas clave (COCOMO)","Dormir bien, comer antes, llevar identificación oficial","Estrategia: responde lo que sabes primero, marca las dudas"]},
+  ];
+
+  function App() {
+    const [tab,setTab]=useState("calendario");
+    const [open,setOpen]=useState(null);
+    const [bt,setBt]=useState({});
+    return (
+      <div style={{fontFamily:"Georgia,serif",background:"#F1F5F9",minHeight:"100vh",padding:"16px 12px"}}>
+        <div style={{maxWidth:860,margin:"0 auto"}}>
+
+          <div style={{background:"linear-gradient(135deg,#1E3A8A,#2563EB 55%,#7C3AED)",borderRadius:14,padding:"24px 20px",marginBottom:18,color:"white",position:"relative",overflow:"hidden"}}>
+            <div style={{position:"absolute",top:-15,right:-15,width:130,height:130,background:"rgba(255,255,255,0.05)",borderRadius:"50%"}}/>
+            <div style={{fontSize:10,fontFamily:"monospace",letterSpacing:3,opacity:0.7,marginBottom:5}}>CENEVAL EGEL PLUS® · ISOFT · 2025</div>
+            <h1 style={{margin:0,fontSize:20,fontWeight:"bold"}}>Plan de Estudio — Ingeniería de Software</h1>
+            <p style={{margin:"6px 0 0",opacity:0.85,fontSize:12}}>Sesiones: Martes · Jueves · Domingo | 1.5h cada una | 8 Mar → 15 May</p>
+            <div style={{display:"flex",gap:10,marginTop:12,flexWrap:"wrap"}}>
+              {[["30","Sesiones"],["45h","Repaso"],["143","Reactivos"],["4","Áreas"]].map(([n,l])=>(
+                <div key={l} style={{background:"rgba(255,255,255,0.15)",borderRadius:8,padding:"6px 12px",textAlign:"center"}}>
+                  <div style={{fontSize:17,fontWeight:"bold"}}>{n}</div>
+                  <div style={{fontSize:10,opacity:0.8}}>{l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{display:"flex",gap:8,marginBottom:14,flexWrap:"wrap"}}>
+            {[["calendario","📅 Calendario"],["areas","📚 Bibliografía"],["tips","💡 Estrategia"]].map(([k,l])=>(
+              <button key={k} onClick={()=>setTab(k)} style={{padding:"8px 15px",borderRadius:8,fontSize:13,fontWeight:tab===k?"bold":"normal",background:tab===k?"#1E3A8A":"white",color:tab===k?"white":"#374151",boxShadow:tab===k?"0 2px 8px rgba(30,58,138,0.3)":"0 1px 3px rgba(0,0,0,0.1)"}}>
+                {l}
+              </button>
+            ))}
+          </div>
+
+          {tab==="calendario" && (
+            <div>
+              <div style={{background:"#FEF9C3",border:"1px solid #FDE68A",borderRadius:10,padding:"10px 14px",marginBottom:12,fontSize:13}}>
+                <strong>📌 Dinámica:</strong> Entre sesiones (Lun, Mié, Vie, Sáb) estudias individualmente. Cada sesión grupal: repasar, resolver dudas y practicar reactivos estilo EGEL.
+              </div>
+              <div style={{display:"grid",gap:7}}>
+                {sessions.map((s,i)=>{
+                  const ts=tStyle[s.type],ac2=aC[s.area];
+                  return (
+                    <div key={i} style={{background:ts.bg,border:`1px solid ${ts.border}`,borderLeft:`4px solid ${ac2}`,borderRadius:9,padding:"9px 13px",display:"flex",gap:9,alignItems:"flex-start"}}>
+                      <span style={{fontSize:16,marginTop:1}}>{ts.icon}</span>
+                      <div style={{flex:1}}>
+                        <div style={{display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:4}}>
+                          <span style={{fontWeight:"bold",fontSize:13}}>{s.date}</span>
+                          <span style={{fontSize:11,background:ac2,color:"white",padding:"2px 8px",borderRadius:20}}>{s.area>0?`Área ${s.area}`:"General"}</span>
+                        </div>
+                        <div style={{fontSize:13,color:"#374151",marginTop:2}}>{s.topic}</div>
+                        <div style={{fontSize:11,color:"#9CA3AF",marginTop:1}}>{ts.label}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {tab==="areas" && (
+            <div style={{display:"grid",gap:11}}>
+              {areas.map(a=>(
+                <div key={a.id} style={{background:"white",borderRadius:12,overflow:"hidden",boxShadow:"0 1px 4px rgba(0,0,0,0.08)"}}>
+                  <div onClick={()=>setOpen(open===a.id?null:a.id)}
+                    style={{background:a.bg,padding:"14px 17px",cursor:"pointer",borderLeft:`5px solid ${a.color}`,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                    <div>
+                      <div style={{fontSize:10,color:a.color,fontWeight:"bold",letterSpacing:1,fontFamily:"monospace"}}>ÁREA {a.id} · {a.reactivos} reactivos · {a.weeks}</div>
+                      <div style={{fontSize:15,fontWeight:"bold",color:"#111827",marginTop:2}}>{a.name}</div>
+                    </div>
+                    <span style={{fontSize:16,color:a.color}}>{open===a.id?"▲":"▼"}</span>
+                  </div>
+                  {open===a.id && (
+                    <div style={{padding:"16px"}}>
+                      <div style={{marginBottom:13}}>
+                        <div style={{fontSize:10,fontWeight:"bold",color:"#6B7280",letterSpacing:1,marginBottom:6}}>SUBÁREAS</div>
+                        {a.subareas.map((s,i)=>(
+                          <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"5px 0",borderBottom:"1px solid #F3F4F6",fontSize:13,color:"#374151"}}>
+                            <span>{s.name}</span>
+                            <span style={{background:a.color,color:"white",borderRadius:12,padding:"1px 8px",fontSize:11,fontWeight:"bold",whiteSpace:"nowrap"}}>{s.reactivos}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{background:"#F9FAFB",borderRadius:8,padding:"10px 12px",marginBottom:13,fontSize:13,color:"#374151",borderLeft:`3px solid ${a.color}`}}>
+                        <strong>💡 Consejo:</strong> {a.studyTips}
+                      </div>
+                      <div style={{display:"flex",gap:7,marginBottom:11}}>
+                        {[["oficial","📖 Bibliografía oficial"],["extra","🚀 Recursos extra"]].map(([k,l])=>{
+                          const active=(bt[a.id]||"oficial")===k;
+                          return <button key={k} onClick={()=>setBt(p=>({...p,[a.id]:k}))} style={{padding:"6px 13px",borderRadius:7,fontSize:12,fontWeight:active?"bold":"normal",background:active?a.color:"#F3F4F6",color:active?"white":"#374151"}}>{l}</button>;
+                        })}
+                      </div>
+                      {(bt[a.id]||"oficial")==="oficial" ? (
+                        <div>
+                          <div style={{fontSize:11,color:"#9CA3AF",marginBottom:7}}>🟢 = gratuito · 📘 = buscar en biblioteca</div>
+                          {a.oficial.map((b,i)=>(
+                            <div key={i} style={{display:"flex",gap:9,alignItems:"flex-start",padding:"7px 0",borderBottom:"1px solid #F3F4F6"}}>
+                              <span style={{fontSize:13,marginTop:2}}>{b.free?"🟢":"📘"}</span>
+                              <div style={{flex:1}}>
+                                <a href={b.url} target="_blank" rel="noreferrer" style={{color:a.color,fontWeight:"bold",fontSize:13}}>{b.title} ↗</a>
+                                <div style={{fontSize:11,color:"#6B7280",marginTop:1}}>{b.author}{b.free&&<span style={{color:"#059669",fontWeight:"bold"}}> · GRATIS</span>}{b.note&&<span style={{color:"#9CA3AF"}}> · {b.note}</span>}</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div>
+                          <div style={{fontSize:11,color:"#9CA3AF",marginBottom:7}}>100% gratuitos — click para abrir</div>
+                          {a.extra.map((b,i)=>(
+                            <div key={i} style={{display:"flex",gap:9,alignItems:"flex-start",padding:"7px 0",borderBottom:"1px solid #F3F4F6"}}>
+                              <span style={{fontSize:11,fontWeight:"bold",padding:"2px 6px",borderRadius:5,whiteSpace:"nowrap",marginTop:2,background:b.type==="YouTube"?"#FEE2E2":"#ECFDF5",color:b.type==="YouTube"?"#DC2626":"#059669"}}>{b.type}</span>
+                              <div style={{flex:1}}>
+                                <a href={b.url} target="_blank" rel="noreferrer" style={{color:a.color,fontWeight:"bold",fontSize:13}}>{b.title} ↗</a>
+                                {b.note&&<div style={{fontSize:11,color:"#6B7280",marginTop:1}}>{b.note}</div>}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {tab==="tips" && (
+            <div style={{display:"grid",gap:11}}>
+              {tips.map((t,i)=>(
+                <div key={i} style={{background:"white",borderRadius:12,padding:"17px",boxShadow:"0 1px 4px rgba(0,0,0,0.08)",borderLeft:`4px solid ${t.color}`}}>
+                  <div style={{fontSize:14,fontWeight:"bold",color:"#111827",marginBottom:9}}>{t.icon} {t.title}</div>
+                  <ul style={{margin:0,paddingLeft:18,display:"grid",gap:5}}>
+                    {t.items.map((item,j)=><li key={j} style={{fontSize:13,color:"#374151",lineHeight:1.6}}>{item}</li>)}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div style={{textAlign:"center",marginTop:18,fontSize:11,color:"#9CA3AF",paddingBottom:18}}>
+            EGEL Plus® ISOFT — CENEVAL 2025 · 143 reactivos · Plan con bibliografía oficial
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+  </script>
+</body>
+</html>
